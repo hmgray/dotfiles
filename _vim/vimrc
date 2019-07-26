@@ -1,0 +1,60 @@
+set encoding=utf-8
+filetype plugin on
+filetype indent on
+
+" APPEARANCE
+set viminfo^=!
+set t_Co=8
+syntax on
+set background=dark
+set novisualbell
+colorscheme acme
+set showcmd
+set statusline=%<%f\ wc:%{WordCount()}\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+set showmode
+set ruler
+set cmdheight=1
+set laststatus=2
+set number
+set display+=lastline
+set linebreak
+
+" COMPLETION
+set wildmode=longest,list,full
+set wildmenu
+
+" EXTERNAL
+set autoread
+set autowriteall
+set shell=/bin/bash
+set path=$PATH
+
+" FORMATTING
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set shiftround
+set expandtab
+set smarttab
+set autoindent
+set cpo+=J
+set spelllang=en_us
+
+" INPUT
+let mapleader=","
+let maplocalleader=","
+set backspace=indent,eol,start
+nnoremap Q <nop>
+nnoremap <Space> za
+vnoremap <Space> za
+nnoremap <Leader><Leader> :<Up><CR>
+nnoremap <ESC><ESC> :nohlsearch<CR><C-l>
+inoremap jk <ESC>`^
+map <C-n> :NERDTreeToggle<CR>
+
+" SEARCHING
+set ignorecase
+set smartcase
+set incsearch
+set showmatch
+set hlsearch

@@ -1,0 +1,49 @@
+# ALIASES
+alias .="cd ."
+alias ..="cd .."
+alias bak="rsync -avP --delete ~/ /media/pi_bak"
+alias cp="cp -ip"
+alias giA="git add *"
+alias gia="git add"
+alias gil="git log --name-only --oneline"
+alias gim="git commit -m"
+alias gip="git push origin master"
+alias gis="git status"
+alias grep='grep --color=auto'
+alias ll="ls -lAF"
+alias ls='ls --color=auto'
+alias lsl="ls | less"
+alias musb="sudo mount /dev/sda1 /media"
+alias mv="mv -i"
+alias q="exit"
+alias rm="rm -i"
+alias shalt="sudo halt"
+
+# HISTORY
+HISTCONTROL=ignoreboth
+shopt -s histappend
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# PROMPT
+PS1='\[\033[01;34m\] \$\[\033[00m\] '
+
+# FUNCTIONS
+function cd() {
+  builtin cd "$*" && echo -e "\033[01;32m$(pwd):\033[00m" && ls
+}
+function .find() {
+    find . -iname *$(echo "$@" | sed s/\ /*/)*
+}
+function lsg() {
+    ls -a | grep -i $(echo "$@" | sed s/\ /.*/)
+}
+function mkcd () {
+        mkdir -p "$*" && cd "$*"
+}
+
+# EXPORTS
+export PATH="$HOME/bin:$PATH"
+export EDITOR=vim
+export VISUAL=vim
+export PAGER=less
