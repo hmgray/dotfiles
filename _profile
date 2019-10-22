@@ -26,11 +26,11 @@ HISTSIZE=1000
 HISTFILESIZE=2000
 
 # PROMPT
-PS1='\[\033[01;34m\] \$\[\033[00m\] '
+PS1='$(whoami)@$(hostname):$(pwd) '
 
 # FUNCTIONS
 function cd() {
-  builtin cd "$*" && echo -e "\033[01;32m$(pwd):\033[00m" && ls
+  builtin cd "$*" && ls
 }
 function .find() {
     find . -iname *$(echo "$@" | sed s/\ /*/)*
