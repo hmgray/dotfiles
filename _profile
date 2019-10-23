@@ -15,6 +15,7 @@ alias ls='ls --color=auto'
 alias lsl="ls | less"
 alias musb="sudo mount /dev/sda1 /media"
 alias mv="mv -i"
+alias open="xdg-open"
 alias q="exit"
 alias rm="rm -i"
 alias shalt="sudo halt"
