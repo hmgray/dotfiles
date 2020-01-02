@@ -1,43 +1,30 @@
-# ALIASES
 alias .="chdir ."
 alias ..="chdir .."
-alias bak="rsync -avP --delete ~/ /media/pi_bak"
 alias cp="cp -ip"
 alias cd="chdir"
-alias giA="git add *"
+alias giA="git add ."
 alias gia="git add"
+alias gic="git commit"
 alias gil="git log --name-only --oneline"
 alias gim="git commit -m"
-alias gip="git push origin master"
+alias giP="git push origin master"
+alias gip="git pull"
 alias gis="git status"
 alias grep='grep --color=auto'
-alias ll="ls -lAF"
 alias ls='ls --color=auto'
+alias ll="ls -lAF"
 alias lsl="ls | less"
-alias musb="sudo mount /dev/sda1 /media"
 alias mv="mv -i"
 alias open="xdg-open"
 alias q="exit"
 alias rm="rm -i"
-alias shalt="sudo halt"
 
-# HISTORY
-HISTCONTROL=ignoreboth
-shopt -s histappend
-HISTSIZE=1000
-HISTFILESIZE=2000
-
-# PROMPT
 PS1="» "
 
-# FUNCTIONS
 chdir () {
-  \cd ${*:-$HOME} && \
+  \cd "${*:-$HOME}" && \
   ls && \
   echo "$(whoami)@$(hostname):$(pwd)/"
-}
-function .find() {
-    find . -iname *$(echo "$@" | sed s/\ /*/)*
 }
 function lsg() {
     ls -a | grep -i $(echo "$@" | sed s/\ /.*/)
@@ -46,11 +33,8 @@ function mkcd () {
         mkdir -p "$*" && cd "$*"
 }
 
-# EXPORTS
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export EDITOR=vim
 export VISUAL=vim
 export PAGER=less
-
-cd .
