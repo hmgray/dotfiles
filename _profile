@@ -1,8 +1,9 @@
 # ALIASES
-alias .="cd ."
-alias ..="cd .."
+alias .="chdir ."
+alias ..="chdir .."
 alias bak="rsync -avP --delete ~/ /media/pi_bak"
 alias cp="cp -ip"
+alias cd="chdir"
 alias giA="git add *"
 alias gia="git add"
 alias gil="git log --name-only --oneline"
@@ -27,11 +28,13 @@ HISTSIZE=1000
 HISTFILESIZE=2000
 
 # PROMPT
-PS1='$(whoami)@$(hostname):$(pwd) '
+PS1="» "
 
 # FUNCTIONS
-function cd() {
-  builtin cd "$*" && ls
+chdir () {
+  \cd ${*:-$HOME} && \
+  ls && \
+  echo "$(whoami)@$(hostname):$(pwd)/"
 }
 function .find() {
     find . -iname *$(echo "$@" | sed s/\ /*/)*
@@ -45,6 +48,9 @@ function mkcd () {
 
 # EXPORTS
 export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 export EDITOR=vim
 export VISUAL=vim
 export PAGER=less
+
+cd .

@@ -18,6 +18,7 @@ set laststatus=2
 set number
 set display+=lastline
 set linebreak
+set breakindent
 
 " COMPLETION
 set wildmode=longest,list,full
