@@ -10,7 +10,7 @@ set background=dark
 set novisualbell
 colorscheme elflord
 set showcmd
-set statusline=%<%f\ wc:%{WordCount()}\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 set showmode
 set ruler
 set cmdheight=1
