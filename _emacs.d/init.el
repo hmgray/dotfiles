@@ -75,37 +75,6 @@
   (eval-expression
    (find-file user-init-file)))
 
-(defun sink-region (start end)
-  "Comment the current region and move it to the bottom of the buffer."
-  (interactive "r")
-  (comment-region start end)
-  (kill-region start end)
-  (bookmark-set "sink-region")
-  (widen)
-  (end-of-buffer)
-  (newline)
-  (yank)
-  (bookmark-jump "sink-region")
-  (pop-mark)
-  (recenter)
-  (message "Sank region."))
-
-(defun w13 ()
-  "Look up a word in Webster's 1913 dictionary."
-  (interactive)
-  (shell-command (concat "w13 " (read-string "Webster's 1913: ")) "*Webster's 1913*")
-  (with-current-buffer "*Webster's 1913*" (view-mode)))
-
-(defun wrt-directory ()
-  "Show my writing project directory, please!"
-  (interactive)
-  (dired "~/wrt"))
-
-(defun wrt-search (&optional arg)
-  "Search my agenda files for matching REGEX."
-  (interactive "P")
-  (org-agenda arg "s"))
-
 
 ;; ESHELL
 (require 'eshell)

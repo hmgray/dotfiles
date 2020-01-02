@@ -1,10 +1,9 @@
 set encoding=utf-8
-filetype plugin on
-filetype indent on
+filetype plugin indent on
 
 " APPEARANCE
 set viminfo^=!
-set t_Co=8
+set t_Co=16
 syntax on
 set background=dark
 set novisualbell
@@ -46,12 +45,9 @@ let mapleader=","
 let maplocalleader=","
 set backspace=indent,eol,start
 nnoremap Q <nop>
-nnoremap <Space> za
-vnoremap <Space> za
 nnoremap <Leader><Leader> :<Up><CR>
 nnoremap <ESC><ESC> :nohlsearch<CR><C-l>
 inoremap jk <ESC>`^
-map <C-n> :NERDTreeToggle<CR>
 
 " SEARCHING
 set ignorecase
