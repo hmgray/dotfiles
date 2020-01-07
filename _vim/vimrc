@@ -47,7 +47,7 @@ set backspace=indent,eol,start
 nnoremap Q <nop>
 nnoremap <Leader><Leader> :<Up><CR>
 nnoremap <ESC><ESC> :nohlsearch<CR><C-l>
-inoremap jk <ESC>`^
+inoremap jk <ESC>`^<C-l>
 
 " SEARCHING
 set ignorecase
