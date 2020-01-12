@@ -38,7 +38,6 @@ set expandtab
 set smarttab
 set autoindent
 set cpo+=J
-set spelllang=en_us
 
 " INPUT
 let mapleader=","
