@@ -7,7 +7,7 @@ set t_Co=16
 syntax on
 set background=dark
 set novisualbell
-colorscheme elflord
+colorscheme eldar
 set showcmd
 set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 set showmode
@@ -15,6 +15,7 @@ set ruler
 set cmdheight=1
 set laststatus=2
 set number
+set cursorline
 set display+=lastline
 set linebreak
 set breakindent
@@ -26,8 +27,6 @@ set wildmenu
 " EXTERNAL
 set autoread
 set autowriteall
-set shell=/bin/bash
-set path=$PATH
 
 " FORMATTING
 set tabstop=2
