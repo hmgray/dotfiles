@@ -9,7 +9,6 @@ set background=dark
 set novisualbell
 colorscheme eldar
 set showcmd
-set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 set showmode
 set ruler
 set cmdheight=1
