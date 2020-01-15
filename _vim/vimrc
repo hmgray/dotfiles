@@ -5,9 +5,8 @@ filetype plugin indent on
 set viminfo^=!
 set t_Co=16
 syntax on
-set background=dark
-set novisualbell
 colorscheme eldar
+set novisualbell
 set showcmd
 set showmode
 set ruler
@@ -28,9 +27,6 @@ set autoread
 set autowriteall
 
 " FORMATTING
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
 set shiftround
 set expandtab
 set smarttab
