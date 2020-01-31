@@ -1,16 +1,15 @@
 alias cp="cp -ip"
-alias giA="git add ."
-alias giP="git push origin master"
 alias gia="git add"
+alias giA="git add ."
 alias gic="git commit"
 alias gil="git log --name-only --oneline"
 alias gim="git commit -m"
 alias gip="git pull"
+alias giP="git push origin master"
 alias gis="git status"
 alias grep='grep --color=auto'
 alias ll="ls -lAF"
 alias ls='ls --color=auto'
-alias lsl="ls | less"
 alias mv="mv -i"
 alias open="xdg-open"
 alias q="exit"
@@ -22,8 +21,7 @@ PS1='$(whoami)@$(hostname):$(pwd)
 lsg() { ls -a | grep -i $(echo "$@" | sed s/\ /.*/); }
 mkcd () { mkdir -p "$*" && cd "$*"; }
 
-export PATH="$HOME/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$HOME/bin:$PATH"
 export EDITOR=vim
 export VISUAL=vim
 export PAGER=less
