@@ -16,7 +16,7 @@ alias q="exit"
 alias rm="rm -i"
 
 PS1='$(whoami)@$(hostname):$(pwd)
-» '
+》 '
 
 lsg() { ls -a | grep -i $(echo "$@" | sed s/\ /.*/); }
 mkcd () { mkdir -p "$*" && cd "$*"; }
