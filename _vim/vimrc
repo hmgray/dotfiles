@@ -25,6 +25,7 @@ set wildmenu
 " EXTERNAL
 set autoread
 set autowriteall
+set clipboard=unnamedplus
 
 " FORMATTING
 set shiftround
