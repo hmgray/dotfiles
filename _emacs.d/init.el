@@ -1,4 +1,4 @@
-;; You can put your Emacs configuration in here!
+;; It's an Emacs configuration file
 
 (setq custom-file "~/.emacs.d/custom-file.el")
 (load-file custom-file)
@@ -56,7 +56,6 @@ the syntax class ')'.")
 ;; Don't prompt to follow symlinks to files under version control
 (setq vc-follow-symlinks t)
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;; Package Management ;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -77,6 +76,7 @@ the syntax class ')'.")
     (package-menu-mark-upgrades)
     (package-menu-execute 'no-query)
     (quit-window))
+  (package-install 'flx-ido)
   (package-install 'ido-completing-read+)
   (package-install 'magit)
   (package-install 'markdown-mode)
@@ -132,7 +132,6 @@ the syntax class ')'.")
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;; Functions ;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -189,20 +188,6 @@ setting it to lisp-mode if it exists."
   (eval-expression
    (find-file user-init-file)))
 
-(defun my/sink-region (start end)
-  "Comment the current region and move it to the bottom of the buffer."
-  (interactive "r")
-  (kill-region start end)
-  (bookmark-set "my/sink-region")
-  (widen)
-  (end-of-buffer)
-  (newline)
-  (yank)
-  (bookmark-jump "my/sink-region")
-  (pop-mark)
-  (recenter)
-  (message "Sank region."))
-
 (defun my/sudo-edit (&optional arg)
 
   "Edit currently visited file as root.
@@ -221,7 +206,6 @@ buffer is not visiting a file."
   (interactive)
   (call-process-shell-command "xdg-open . &" nil 0))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;; Input ;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -239,10 +223,7 @@ buffer is not visiting a file."
       scroll-preserve-screen-position 1)
 
 ;; Aliases
-(defalias 'tp 'transpose-paragraphs)
-(defalias 'ts 'transpose-sentences)
 (defalias 'word-count 'count-words)
-(defalias 'wn 'wordnut-search)
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -253,24 +234,11 @@ buffer is not visiting a file."
 (define-key my/persistent-bindings-map (kbd "S-<left>") 'windmove-left)
 (define-key my/persistent-bindings-map (kbd "S-<right>") 'windmove-right)
 
-(define-key my/persistent-bindings-map (kbd "M-T") 'transpose-paragraphs)
-
 (define-key my/persistent-bindings-map (kbd "C-<tab>") 'other-window)
 (define-key my/persistent-bindings-map (kbd "C-=") 'text-scale-increase)
 (define-key my/persistent-bindings-map (kbd "C--") 'text-scale-decrease)
-(define-key my/persistent-bindings-map (kbd "C-'") #'imenu-list-smart-toggle)
 (define-key my/persistent-bindings-map (kbd "C-!") 'eshell)
 
-(define-key my/persistent-bindings-map (kbd "s-W") 'my/writenow-mode)
-(define-key my/persistent-bindings-map (kbd "s-f") 'fzf)
-(define-key my/persistent-bindings-map (kbd "s-g") 'deadgrep)
-(define-key my/persistent-bindings-map (kbd "s-.") 'my/ido-find-org-file)
-(define-key my/persistent-bindings-map (kbd "s-/") 'my/org-agenda-search)
-
-(define-key my/persistent-bindings-map [f1] 'my/ido-find-org-file)
-(define-key my/persistent-bindings-map [f2] 'org-capture)
-(define-key my/persistent-bindings-map [f3] 'my/org-full-frame-agenda )
-(define-key my/persistent-bindings-map [f4] 'mu4e)
 ;; F5 is reserved for narrowing functions
 (define-key my/persistent-bindings-map [f6] 'widen)
 (define-key my/persistent-bindings-map [f8] 'my/scratch-buffer)
@@ -360,10 +328,6 @@ buffer is not visiting a file."
                                                         (transpose-paragraphs 1)))
      (define-key markdown-mode-map [f5] 'markdown-narrow-to-subtree)))
 
-(defun my/wc-mode-hook ()
-  (wc-mode 1))
-(add-hook 'markdown-mode-hook 'my/wc-mode-hook)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;; Org Mode ;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -390,12 +354,6 @@ buffer is not visiting a file."
 
 (setq org-cycle-separator-lines 0)
 
-(setq org-modules (quote
-                   (org-eww
-                    org-docview
-                    org-info
-                    org-tempo)))
-
 (setq org-footnote-define-inline t)
 
 (setq org-log-into-drawer t)
@@ -413,7 +371,6 @@ buffer is not visiting a file."
 (setq org-agenda-sticky t)
 (setq org-agenda-include-diary t)
 (setq org-agenda-inhibit-startup t)
-(setq org-agenda-files (list my/notes-directory))
 (setq org-agenda-exporter-settings
       '((htmlize-output-type 'font)))
 (define-key org-mode-map (kbd "C-,") nil)
@@ -424,66 +381,15 @@ buffer is not visiting a file."
   (define-key org-agenda-mode-map (kbd "p") 'org-agenda-previous-item))
 (add-hook 'org-agenda-mode-hook 'hl-line-mode)
 
-(defun my/org-full-frame-agenda ()
-  "Open the Org Agenda as the sole window in a frame."
-  (interactive)
-  (setq org-agenda-files (list my/notes-directory))
-  (org-agenda-list)
-  (delete-other-windows))
-
-(setq org-attach-method 'mv)
-(setq org-attach-directory "data/")     ; Default value
-
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((dot . t)
-   (emacs-lisp . t)
-   (latex . t)
-   (ledger . t)
-   (lilypond . t)))
-
-(setq org-default-notes-file (concat org-directory "Capture.org"))
-(setq
- my/exegeses-capture-file (concat my/notes-directory "Exegeses.org")
- my/idea-capture-file (concat my/notes-directory "Writing Ideas and Projects.org")
- my/journal-capture-file (concat my/notes-directory ".journal.org")
- my/money-capture-file (concat my/notes-directory "Money.org"))
-(setq org-capture-templates '(("e" "Exegeses" entry
-                               (file my/exegeses-capture-file)
-                               "* %?\n:PROPERTIES:\n:ADDED: %T\n:END:"
-                               :prepend t)
-                              ("i" "Writing Idea" entry
-                               (file my/idea-capture-file)
-                               "* %?\n:PROPERTIES:\n:ADDED: %T\n:END:"
-                               :prepend t)
-                              ("j" "Journal" entry
-                               (file+olp+datetree my/journal-capture-file)
-                               "* %?\n%U\n  ")
-                              ("m" "Money" entry
-                               (file+headline my/money-capture-file
-                               "Unscheduled Expenses")
-                               "* %?")
-                              ("c" "Unfiled Capture" entry
+(setq org-default-notes-file "notes.org")
+(setq org-capture-templates '(("c" "Capture" entry
                                (file org-default-notes-file)
                                "* %? "
                                :prepend t)
-                              ("L" "Protocol Link" entry
+                              ("t" "Capture Task" entry
                                (file org-default-notes-file)
-                               "* %:description \
-                                \n:PROPERTIES:\n:ADDED: %T\n:END: \
-                                \n- Source :: %:link \
-                                \n%?"
-                               :immediate-finish t)
-                              ("p" "Protocol" entry
-                               (file org-default-notes-file)
-                               "* %:description \
-                                \n:PROPERTIES:\n:ADDED: %T\n:END: \
-                                \n- Source :: %:link \
-                                \n#+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n \
-                                \n%?" :immediate-finish t)
-                              ("t" "Unfiled Task" entry
-                               (file org-default-notes-file)
-                               "* TODO %? ")))
+                               "* TODO %? "
+                               :prepent t)))
 
 (defadvice org-capture-finalize
     (after delete-capture-frame activate)
@@ -534,15 +440,10 @@ buffer is not visiting a file."
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c t") 'org-todo)
-
 (add-hook 'org-load-hook
           (define-key org-mode-map [f5] 'org-narrow-to-subtree))
 
-(add-to-list 'org-structure-template-alist '("asm" . "src nasm"))
-(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-(add-to-list 'org-structure-template-alist '("rb" . "src ruby"))
-(add-to-list 'org-structure-template-alist '("rs" . "src rust"))
-(add-to-list 'org-structure-template-alist '("sh" . "src sh"))
+;;(add-to-list 'org-structure-template-alist '("asm" . "src nasm"))
 
 (setq org-todo-keywords
       '((type "TODO(t)" "ACTV(a)" "WAIT(w)" "|" "DONE(d!)" "CNCL(c@)")))
