@@ -1,5 +1,5 @@
 PS1='$(whoami)@$(hostname):$(pwd)
-》 '
+》'
 alias cp="cp -ip"
 alias gia="git add"
 alias giA="git add ."
@@ -22,3 +22,4 @@ export PATH="$HOME/.cargo/bin:$HOME/bin:$PATH"
 export EDITOR=vim
 export VISUAL=vim
 export PAGER=less
+source /usr/share/doc/fzf/examples/key-bindings.bash
