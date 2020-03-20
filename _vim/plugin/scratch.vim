@@ -1,7 +1,7 @@
 
 function! ScratchBuffer()
         edit *scratch*
-        setlocal buftype=nofile bufhidden=hide
+        setlocal buftype=nofile bufhidden=hide noswapfile
         lcd ~
 endfunction
 
