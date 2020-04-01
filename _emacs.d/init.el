@@ -1,4 +1,3 @@
-;; It's an Emacs configuration file
 
 (setq custom-file "~/.emacs.d/custom-file.el")
 (load-file custom-file)
@@ -40,15 +39,8 @@
 (transient-mark-mode 1)
 (show-paren-mode 1)
 (setq show-paren-delay 0)
-(defadvice show-paren-function (after show-matching-paren-offscreen
-                                      activate)
-  "If the matching paren is offscreen, show the matching line in the
-echo area. Has no effect if the character before point is not of
-the syntax class ')'.")
-(setq pulse-flag t)
-(setq pulse-command-advice-flag t)
-(add-hook 'dumb-jump-after-jump-hook 'pulse-line-hook-function)
-(custom-set-faces '(pulse-highlight-start-face ((t (:background "#d33682")))))
+(defadvice show-paren-function (after show-matching-paren-offscreen activate))
+(load-theme 'leuven)
 
 ;; Decrease garbage collection frequency
 (setq gc-cons-threshold 20000000)
@@ -442,8 +434,6 @@ buffer is not visiting a file."
 (global-set-key (kbd "C-c t") 'org-todo)
 (add-hook 'org-load-hook
           (define-key org-mode-map [f5] 'org-narrow-to-subtree))
-
-;;(add-to-list 'org-structure-template-alist '("asm" . "src nasm"))
 
 (setq org-todo-keywords
       '((type "TODO(t)" "ACTV(a)" "WAIT(w)" "|" "DONE(d!)" "CNCL(c@)")))
