@@ -11,13 +11,14 @@ syntax case ignore
 syntax sync linebreaks=1
 
 " Lists:
-syntax match  listItem "^\s*\(-\|\d\+\.\)\s.*$" contains=listMarker
+syntax match  listItem "^\s*\(-\|*\|+\|\d\+\.\)\s.*$"
 highlight default link listItem Normal
-syntax match  listMarker "^\s*\(-\|\d\+\.\)\s" contained containedin=listItem
+syntax match  listMarker "^\s*\(-\|*\|+\|\d\+\.\)\s" contained containedin=listItem
+syntax match  listMarker "^\s*\(-\|*\|+\|\d\+\.\)\s\(\[ \]\|\[X\]\)" contained containedin=listItem
 highlight default link listMarker LineNr
-syntax match  taskBox "\[ \]" contained containedin=listItem
+syntax match  taskBox "\[ \]" contained containedin=listMarker
 highlight default link taskBox Todo
-syntax match  doneBox "\[X\]" contained containedin=listItem
+syntax match  doneBox "\[X\]" contained containedin=listMarker
 highlight default link doneBox Comment
 
 " Code:
@@ -31,34 +32,27 @@ highlight default link blockCode String
 " Block Quotes:
 syntax match blockQuote /^>.*\n\(.*\n\@<!\n\)*/ skipnl
 highlight default link blockQuote Comment
+
 " Ignored Section:
-syntax region Function start=/<!--/ end=/-->/
-" Trailing Spaces:
-syntax match Comment /\s\s$/
+syntax region mdComment start=/<!--/ end=/-->/
+highlight default link mdComment Comment
 
 " Headers:
 syntax region mdHeader start="^##*" end="\($\|#\+\)"
 highlight default link mdHeader Title
-
-" Reference Material:
-syntax region PreProc start=/\^\[/ skip=/\[[^]]*\]/ end=/\]/
-
-" Pandoc Citations:
-syntax region citation start="[ ,.?!(\[\n]@" end="[ ,.?!)\]\n]"
-syntax region citation start="[ ,.?!(\[\n][-]@" end="[ ,.?!)\]\n]"
-highlight default link citation PreProc
 
 " Title Metadata Blocks:
 syntax region titleBlock start=/\%1l^---$/ end=/^\(---\|...\)$/
 syntax region titleBlock start=/\%1l%/ end=/\(^$\|^\(%\|\s\)\@!\)/
 highlight default link titleBlock Header
 
-" Links:
-syntax region PreProc start="!\[" skip="\](" end=")\+"
-syntax region PreProc start="\[" skip="\](" end=")\+"
+" Brackets:
+syntax match squareBrackets "\[" containedin=listItem
+syntax match squareBrackets "\]" containedin=listItem
+highlight default link squareBrackets PreProc
 
-" Math:
-syntax match Operator     "\ $\S*\$"
-syntax region Operator start=/\$\$/ end=/\$\$/ " display math
+" Flag:
+syntax match qqFlag "qq"
+highlight default link qqflag Todo
 
 let b:current_syntax = "minimd"

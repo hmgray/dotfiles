@@ -3,38 +3,40 @@
 " Author:       J. O. Brickley
 
 " Folding:
-function! minimd#MarkdownLevel()
-    let theline = getline(v:lnum)
-    if theline =~ '^# '
-        return ">1"
-    elseif theline =~ '^## '
-        return ">2"
-    elseif theline =~ '^### '
-        return ">3"
-    else
-        return "="
+function! minimd#ManualFold()
+  let l:pos1 = getpos(".")
+  if foldlevel(l:pos1[1]) != 0
+    execute 'silent! normal! zd'
+  else
+    let l:synID1 = synIDtrans(hlID("mdHeader"))
+    let l:synID2 = synIDtrans(synID(line("."), 1, 1))
+    if l:synID1 != l:synID2
+      call minimd#HeaderMotion('B')
+      let l:pos1 = getpos(".")
     endif
-endfunction
-function! minimd#CycleFolding()
-    if &foldlevel
-      setlocal foldlevel=0
+    call minimd#HeaderMotion('F')
+    let l:pos2 = getpos(".")
+    if l:pos2[1] == line('$')
+      execute l:pos1[1] ',' l:pos2[1] 'fold'
     else
-      setlocal foldlevel=3
+      execute l:pos1[1] ',' l:pos2[1]-1 'fold'
     endif
+    call setpos('.', l:pos1)
+  endif
 endfunction
 
 " Task Toggling:
 function! minimd#TaskToggle()
     let b:line = getline(".")
     let b:linenum = line(".")
-    if b:line =~ '^\s*\(-\|\d\+\.\) \[ \] .*$'
+    if b:line =~ '^\s*\(-\|*\|+\|\d\+\.\) \[ \] .*$'
         let b:newline = substitute(b:line, '\[ \] ', '\[X\] ', "")
         call setline(b:linenum, b:newline)
-    elseif b:line =~ '^\s*\(-\|\d\+\.\) \[X\] .*$'
+    elseif b:line =~ '^\s*\(-\|*\|+\|\d\+\.\) \[X\] .*$'
         let b:newline = substitute(b:line, '\[X\] ', '\[ \] ', "")
         call setline(b:linenum, b:newline)
-    elseif b:line =~ '^\s*\(-\|\d\+\.\) .*$'
-        let b:newline = substitute(b:line, '\(-\|\d\+\.\) ', '\1 \[ \] ', "")
+    elseif b:line =~ '^\s*\(-\|*\|+\|\d\+\.\) .*$'
+        let b:newline = substitute(b:line, '\(^\s*\)\(-\|*\|+\|\d\+\.\)\s', '\1\2 \[ \] ', "")
         call setline(b:linenum, b:newline)
     endif
 endfunction
@@ -63,6 +65,25 @@ function! minimd#DemoteHeader()
         let b:newline = substitute(b:line, '^# ', '', "")
         call setline(b:linenum, b:newline)
     endif
+endfunction
+
+" Header Motion:
+function! minimd#HeaderMotion(dir)
+  let l:synID1 = synIDtrans(hlID("mdHeader"))
+  while 1
+    let l:pos1 = getpos(".")
+    if a:dir ==# 'B'
+      execute "normal! k"
+    else
+      execute "normal! j"
+    endif
+    let l:pos2 = getpos(".")
+    let l:synID2 = synIDtrans(synID(line("."), 1, 1))
+    if  l:synID1 == l:synID2 || l:pos1 == l:pos2
+      call setpos('.', l:pos2)
+      break
+    endif
+  endwhile
 endfunction
 
 " Word Count:
