@@ -19,8 +19,7 @@ alias rm="rm -i"
 alias tmux="tmux new-session -A -s '0'"
 lsg() { ls -a | grep -i $(echo "$@" | sed s/\ /.*/); }
 mkcd () { mkdir -p "$*" && cd "$*"; }
-export PATH="$HOME/.cargo/bin:$HOME/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
 export EDITOR=vim
 export VISUAL=vim
 export PAGER=less
-source /usr/share/doc/fzf/examples/key-bindings.bash
