@@ -16,7 +16,10 @@ set number
 set cursorline
 set display+=lastline
 set linebreak
-set breakindent
+
+if has('breakindent')
+        set breakindent
+end
 
 " COMPLETION
 set wildmode=longest,list,full
