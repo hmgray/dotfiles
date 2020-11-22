@@ -7,7 +7,6 @@ alias gic="git commit"
 alias gil="git log --pretty=oneline"
 alias gim="git commit -m"
 alias gip="git pull"
-alias giP="git push origin master"
 alias gis="git status"
 alias grep='grep --color=auto'
 alias ll="ls -lAF"
@@ -17,6 +16,7 @@ alias open="xdg-open"
 alias q="exit"
 alias rm="rm -i"
 alias tmux="tmux new-session -A -s '0'"
+giP() { git push origin $(git rev-parse --abbrev-ref HEAD); }
 lsg() { ls -a | grep -i $(echo "$@" | sed s/\ /.*/); }
 mkcd () { mkdir -p "$*" && cd "$*"; }
 export PATH="$HOME/bin:$PATH"
