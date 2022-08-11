@@ -91,10 +91,10 @@ let  s:ColourAssignment['CursorLineNr']  =  {'GUIFG':  'White'}
 " Number column
 " -------------
 let  s:ColourAssignment['CursorColumn']  =  {'GUIBG':  'DarkGrey'}
-let  s:ColourAssignment['Folded']        =  {'GUIFG':  'DarkGrey',      'GUIBG':  'Black'}
+" TODO folds are invisible in regular Vim---fuck all---unless GUIBG is 'NONE' rather than 'Black'
+let  s:ColourAssignment['Folded']        =  {'GUIFG':  'DarkGrey',      'GUIBG':  'NONE'}
 let  s:ColourAssignment['FoldColumn']    =  {'GUIBG':  'DarkGrey'}
 highlight! link SignColumn FoldColumn
-
 
 " Window/Tab delimiters
 " ---------------------
@@ -125,7 +125,7 @@ let  s:ColourAssignment['MoreMsg']       =  {'GUIFG':  s:green,  'CTERMFG':  'Gr
 
 " Visual aid
 " ----------
-let  s:ColourAssignment['MatchParen']  =  {'GUIBG':  s:cyan,      'CTERMBG':  'cyan'}
+let  s:ColourAssignment['MatchParen']  =  {'GUIBG':  'DarkGray',      'CTERMBG':  'DarkGray'}
 let  s:ColourAssignment['Visual']      =  {'GUIBG':  'DarkGrey'}
 highlight! link VisualNOS Visual
 let  s:ColourAssignment['NonText']     =  {'GUIFG':  s:blue,      'CTERMFG':  'blue'}
