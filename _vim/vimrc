@@ -42,8 +42,12 @@ let mapleader=","
 let maplocalleader=","
 set backspace=indent,eol,start
 nnoremap Q <nop>
-nnoremap <Leader><Leader> :<Up><CR>
-nnoremap <ESC><ESC> :nohlsearch<CR><C-l>
+nnoremap <Leader>. :cd %:p:h<CR>:pwd<CR>
+nnoremap <Leader>.. :cd ..<CR>:pwd<CR>
+nnoremap <Leader>w :w<CR>
+nnoremap <Space> za
+nnoremap <Leader><Leader> <C-^>
+nnoremap <C-l> :nohlsearch<CR><C-l>
 inoremap jk <ESC>`^<C-l>
 
 " SEARCHING
@@ -52,3 +56,4 @@ set smartcase
 set incsearch
 set showmatch
 set hlsearch
+runtime! local.vim macros/matchit.vim
