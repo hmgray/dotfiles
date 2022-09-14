@@ -1,5 +1,3 @@
-PS1='$(whoami)@$(hostname):$(pwd)
-》'
 alias cp="cp -ip"
 alias gia="git add"
 alias giA="git add ."
