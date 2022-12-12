@@ -20,4 +20,4 @@ export PATH="$HOME/bin:$PATH"
 export EDITOR=vim
 export VISUAL=vim
 export PAGER=less
-if [ -f ~/.localrc ]; then . .localrc; fi
+if [ -f ~/.localrc ]; then . ~/.localrc; fi
