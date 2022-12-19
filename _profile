@@ -14,7 +14,7 @@ alias q="exit"
 alias rm="rm -i"
 alias tmux="tmux new-session -A -s '0'"
 giP() { git push origin $(git rev-parse --abbrev-ref HEAD); }
-lsg() { ls -a | grep -i $(echo "$@" | sed s/\ /.*/); }
+lsg() { ls -a | grep -i $(echo "$@" | sed 's/\ /.*/g'); }
 mkcd () { mkdir -p "$*" && cd "$*"; }
 export PATH="$HOME/bin:$PATH"
 export EDITOR=vim
