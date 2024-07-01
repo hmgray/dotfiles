@@ -1,23 +1,78 @@
+# Ask for confirmation if copying would overwrite another file.
 alias cp="cp -ip"
+
+# Add files to a _git_ repository.
 alias gia="git add"
+
+# Add all visible files in a directory to a _git_ repository.
 alias giA="git add ."
+
+# Commit changes to a _git_ repository, prompting for a commit message.
 alias gic="git commit"
+
+# Print a repository's history in a compact format.
 alias gil="git log --pretty=oneline"
+
+# Commit changes to a _git_ repository while providing a commit message on the
+# command line.
 alias gim="git commit -m"
+
+# Pull changes to a _git_ repository from its default remote.
 alias gip="git pull"
+
+# Print a _git_ repository's status.
 alias gis="git status"
+
+# Always try to colorize _grep_'s output.
 alias grep='grep --color=auto'
+
+# List more information about something.
 alias ll="ls -lAF"
+
+# Always try to colorize _ls_'s output.
 alias ls='ls --color=auto'
+
+# Ask for confirmation before overwriting a file with _mv_.
 alias mv="mv -i"
+
+# Exit a shell with _q_.
 alias q="exit"
+
+# Ask for confirmation before removing a file.
 alias rm="rm -i"
+
+# Set _tmux_ to automatically attach to a session that we name "0".  Doing that
+# makes it harder to accidentally start multiple _tmux_ sessions.
 alias tmux="tmux new-session -A -s '0'"
+
+# Define a function _gip_ that pushes the current branch to origin.  Recent
+# changes to _git push_ may have obviated this function by changing the default
+# behavior of _git push_ to do the same thing as this function, but keeping
+# this function around does not hurt things, so let's keep it around for now.
 giP() { git push origin $(git rev-parse --abbrev-ref HEAD); }
+
+# Define a function that lists everything in the current directory, then does a
+# case insensitive _grep_ across that list with a regular expression that is
+# created by concatenating each space-delimited argument to this function with
+# an expression that matches anything.  Good for finding things in a directory
+# when you don't remember their exact names, or for checking that something is
+# present without typing its entire name.
 lsg() { ls -a | grep -i $(echo "$@" | sed 's/\ /.*/g'); }
+
+# Define a function to make a directory, optionally several layers deep, then
+# change to the new directory.
 mkcd () { mkdir -p "$*" && cd "$*"; }
+
+# Look for commands in the _~/bin_ directory.
 export PATH="$HOME/bin:$PATH"
+
+# Use _vim_ to edit files.
 export EDITOR=vim
 export VISUAL=vim
+
+# Use _less_ to view files.
 export PAGER=less
+
+# If the file _.localrc_ is present in your home directory, treat it as
+# additional configuration for your shell.
 if [ -f ~/.localrc ]; then . ~/.localrc; fi
