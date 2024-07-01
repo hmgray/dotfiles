@@ -66,6 +66,12 @@ mkcd () { mkdir -p "$*" && cd "$*"; }
 # Look for commands in the _~/bin_ directory.
 export PATH="$HOME/bin:$PATH"
 
+# Use _readline_ style keybindings to navigate in the shell.  These are the
+# same bindings that are present in text boxes in _MacOS_, and include things
+# like _C-a_ to go to the beginning of a line, _C-e_ to go to a line's end,
+# _C-k_ to "kill" (cut) a line, and _C-y_ to "yank" (paste) a line.
+set -o emacs
+
 # Use _vim_ to edit files.
 export EDITOR=vim
 export VISUAL=vim
